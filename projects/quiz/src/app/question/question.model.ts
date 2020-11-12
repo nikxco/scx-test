@@ -3,7 +3,7 @@ import { shuffle } from "../app.util";
 export enum QuestionType {
     Multiple = 'multiple',
     Boolean = 'boolean',
-    Text = 'Text'
+    Text = 'text'
 }
 export enum QuestionDifficulty {
     Easy = 'easy',
@@ -46,7 +46,7 @@ export class Question {
     public get answers(): string[] {
         let answers = [...this._incorrect_answers, this._correct_answer];
 
-        // Optionally we shuffle the answers
+        // Optionally we can shuffle the answers
         answers = shuffle(answers);
 
         return answers;
