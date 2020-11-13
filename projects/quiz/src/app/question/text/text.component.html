@@ -1,1 +1,11 @@
-<p>text works!</p>
+<section class="container">
+    <h1 class="title">{{title}}</h1>
+    <section class="controls">
+        <section class="control">
+            <input type="text" name="answer" [formControl]="submittedAnswer" />
+        </section>
+    </section>
+    <section class="toolbar">
+        <button class="btn primary" (click)="onNext()">Next</button>
+    </section>
+</section>

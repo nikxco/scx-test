@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,10 @@ import { MultipleComponent } from './question/multiple/multiple.component';
 import { BooleanComponent } from './question/boolean/boolean.component';
 import { TextComponent } from './question/text/text.component';
 
+import { SummaryModule } from './summary/summary.module';
+import { QuestionService } from './question/question.service';
+import { Question } from './question/question.model';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -16,9 +20,19 @@ import { TextComponent } from './question/text/text.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QuestionModule
+    QuestionModule,
+    SummaryModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: prepareQuestions,
+      deps: [
+        QuestionService
+      ],
+      multi: true
+    }
+  ],
   entryComponents: [
     MultipleComponent,
     BooleanComponent,
@@ -27,3 +41,12 @@ import { TextComponent } from './question/text/text.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function prepareQuestions(questionService: QuestionService) {
+  return () => new Promise((resolve, reject) => {
+    questionService.fetchQuestions().subscribe((questions: Question[]) => {
+      questionService.questions = questions;
+      resolve();
+    }, (err) => reject(err));
+  });
+}

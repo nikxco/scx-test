@@ -14,6 +14,8 @@ import { shuffle } from '../app.util';
 })
 export class QuestionService {
 
+  questions: Question[];
+
   constructor(
     private http: HttpClient
   ) { }
@@ -24,11 +26,17 @@ export class QuestionService {
     return this.http.get<{ response_code: number, results: Question[] }>(endpoint)
       .pipe(
         map((response) => {
-          let questions = shuffle(response.results).slice(0, 5);
+          let questions = response.results;
           questions = questions.map(this.toQuestion);
-          return questions
+          return questions;
         })
-      )
+      );
+  }
+
+  getBatch(): Question[] {
+    const maxQuestions = environment.questionsToDisplay;
+    let questions = shuffle(this.questions);
+    return questions.slice(0, maxQuestions);
   }
 
   toQuestion(payload: any): Question {

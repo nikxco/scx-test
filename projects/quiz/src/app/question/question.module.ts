@@ -4,13 +4,15 @@ import { MultipleComponent } from './multiple/multiple.component';
 import { BooleanComponent } from './boolean/boolean.component';
 import { TextComponent } from './text/text.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [MultipleComponent, BooleanComponent, TextComponent],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   exports: [
     MultipleComponent,

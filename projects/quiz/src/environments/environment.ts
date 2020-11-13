@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  questions: 'http://localhost:4000/api/questions'
+  questions: 'http://localhost:4000/api/questions',
+  questionsToDisplay: 5
 };
 
 /*

@@ -1,0 +1,32 @@
+<section class="container">
+    <h1 class="title">Summary</h1>
+    <section class="details">
+        <section class="detail">
+            <label>Total questions: </label>
+            <strong>{{totalQuestions}}</strong>
+        </section>
+        <section class="detail">
+            <label>Correct: </label>
+            <strong>{{correctAnswers}}</strong>
+        </section>
+        <section class="detail">
+            <label>Wrong: </label>
+            <strong>{{incorrectAnswers}}</strong>
+        </section>
+        <section class="detail">
+            <label>Questions answered: </label>
+            <strong>{{questionsAnswered}}</strong>
+        </section>
+        <section class="detail">
+            <label>Questions skipped: </label>
+            <strong>{{questionsSkipped}}</strong>
+        </section>
+        <section class="detail">
+            <label>Final score: </label>
+            <strong>{{scorePercentage}}</strong>
+        </section>
+    </section>
+    <section class="toolbar">
+        <button class="btn primary" (click)="onRestart()">Restart Quiz</button>
+    </section>
+</section>

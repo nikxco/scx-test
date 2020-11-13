@@ -1,1 +1,14 @@
-<p>boolean works!</p>
+<section class="container">
+    <h1 class="title">{{title}}</h1>
+    <section class="controls">
+        <ng-container *ngFor="let answer of answers; index as i">
+            <section class="control">
+                <input type="radio" name="answer" id="_{{i}}" [value]="answer" [formControl]="submittedAnswer">
+                <label for="_{{i}}">{{answer}}</label>
+            </section>
+        </ng-container>
+    </section>
+    <section class="toolbar">
+        <button class="btn primary" (click)="onNext()">Next</button>
+    </section>
+</section>

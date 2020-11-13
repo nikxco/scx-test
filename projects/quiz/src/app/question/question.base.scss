@@ -1,0 +1,30 @@
+.container {
+    padding: 3em 5em;
+    .title {
+        margin-bottom: 1.5em;
+    }
+    .controls {
+        display: flex;
+        flex-direction: column;
+        .control {
+            margin-bottom: 1em;
+            label {
+                margin-left: 0.3em;
+            }
+            input {
+                margin: 0;
+            }
+        }
+    }
+    .toolbar {
+        margin-top: 2em;
+        .btn {
+            padding: 1em 2em;
+            border: none;
+            &.primary {
+                background-color: #1E70DD;
+                color: #fff;
+            }
+        }
+    }
+}

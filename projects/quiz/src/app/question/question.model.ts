@@ -1,3 +1,7 @@
+import { EventEmitter, Input, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { shuffle } from "../app.util";
 
 export enum QuestionType {
@@ -19,15 +23,18 @@ export class Question {
     private _incorrect_answers: string[];
     private _submittedAnswer: string;
 
-    constructor({ category, type, difficulty, question, correct_answer, incorrect_answers }) {
-        this._category = category;
-        this._type = type;
-        this._difficulty = difficulty;
-        this._question = question;
-        this._correct_answer = correct_answer;
-        this._incorrect_answers = incorrect_answers;
+    constructor(payload) {
+        this._init(payload);
     }
 
+    private _init(payload: any): void {
+        this._category = payload.category;
+        this._type = payload.type;
+        this._difficulty = payload.difficulty;
+        this._question = payload.question;
+        this._correct_answer = payload.correct_answer;
+        this._incorrect_answers = payload.incorrect_answers;
+    }
 
     public get category(): string {
         return this._category;
@@ -44,11 +51,11 @@ export class Question {
     }
 
     public get answers(): string[] {
-        let answers = [...this._incorrect_answers, this._correct_answer];
-
-        // Optionally we can shuffle the answers
-        answers = shuffle(answers);
-
+        let answers = []
+        if (this._incorrect_answers) {
+            answers.push(...this._incorrect_answers);
+        }
+        answers.push(this._correct_answer);
         return answers;
     }
 
@@ -56,8 +63,41 @@ export class Question {
         this._submittedAnswer = answer;
     }
 
+    public hasBeenAnswered(): boolean {
+        return !!this._submittedAnswer;
+    }
+
     public hasBeenAnsweredCorrectly(): boolean {
-        return this._submittedAnswer &&
+        return this.hasBeenAnswered() &&
             this._submittedAnswer === this._correct_answer;
+    }
+}
+
+export class QuestionTypeBase {
+    question: Question;
+    next: EventEmitter<Question>;
+    submittedAnswer: FormControl = new FormControl(null);
+    private _destroy: Subject<boolean> = new Subject();
+    constructor() {
+        this.submittedAnswer.valueChanges.pipe(
+            takeUntil(this._destroy)
+        ).subscribe((answer: string) => {
+            this.question.setAnswer(answer);
+        })
+    }
+
+    get title(): string {
+        let title = this.question?.question;
+        return title
+    }
+
+    get answers(): string[] {
+        let answers = this.question?.answers;
+        return answers
+    }
+
+    onNext(): void {
+        this.next.emit(this.question);
+        this._destroy.next(true);
     }
 }
