@@ -1,8 +1,7 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { shuffle } from "../app.util";
 
 export enum QuestionType {
     Multiple = 'multiple',

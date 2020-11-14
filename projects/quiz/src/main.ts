@@ -10,7 +10,7 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => {
-    const textNode = document.createTextNode('Unable to start the Quiz, please refresh the app to try again later.');
+    const textNode = document.createTextNode('Unable to start the quiz, please refresh the app to try again.');
     const body = document.querySelector('body');
     body.style.color = 'red';
     body.appendChild(textNode)

@@ -1,13 +1,25 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { take } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { BooleanComponent } from './question/boolean/boolean.component';
 import { MultipleComponent } from './question/multiple/multiple.component';
-import { Question, QuestionType, QuestionTypeBase } from './question/question.model';
-
+import {
+  Question,
+  QuestionType,
+  QuestionTypeBase
+} from './question/question.model';
 import { QuestionService } from './question/question.service';
 import { TextComponent } from './question/text/text.component';
 import { SummaryComponent } from './summary/summary/summary.component';
+
 
 @Component({
   selector: 'scx-root',
@@ -51,8 +63,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // To iterate over collection of questions
   next(): void {
-    const next = this.questions.next();
-    this.activeQuestion = next.value
+    const nextQuestion = this.questions.next();
+    this.activeQuestion = nextQuestion.value
     if (this.activeQuestion) {
       this.renderQuestion(this.activeQuestion);
     } else {
