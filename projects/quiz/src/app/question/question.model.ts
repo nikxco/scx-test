@@ -70,6 +70,10 @@ export class Question {
         return this.hasBeenAnswered() &&
             this._submittedAnswer === this._correct_answer;
     }
+
+    public reset(): void {
+        this._submittedAnswer = null;
+    }
 }
 
 export class QuestionTypeBase {

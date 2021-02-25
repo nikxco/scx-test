@@ -35,7 +35,10 @@ export class QuestionService {
 
   getBatch(): Question[] {
     const maxQuestions = environment.questionsToDisplay;
-    let questions = shuffle(this.questions);
+    let questions: Question[] = shuffle(this.questions);
+    questions.forEach((question) => {
+      question.reset();
+    })
     return questions.slice(0, maxQuestions);
   }
 

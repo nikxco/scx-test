@@ -82,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ).subscribe(() => {
       this.submittedQuestions = [];
       this.start();
+      debugger
     }
     );
   }
@@ -138,7 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param type {QuestionType}
    * @returns Component class
    */
-  getComponentByType(type: QuestionType): any {
+  getComponentByType(type: QuestionType): QuestionTypeBase {
     let component;
     switch (type) {
       case QuestionType.Multiple:
